@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting Operation Based on Column</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+        function sortTable(f,n) 
+        {
+            var rows = $('#mytable tbody  tr').get();
+
+            rows.sort(function(a, b) 
+            {
+
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) 
+                {
+                    return -1*f;
+                }
+                if(A > B) 
+                {
+                    return 1*f;
+                }
+             return 0;
+            });
+
+            function getVal(elm)
+            {
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }   
+            return v;
+            }
+
+            $.each(rows, function(index, row) {
+                $('#mytable').children('tbody').append(row);
+            });
+        }
+        
+        var f_sl = 1;
+        var f_nm = 1;
+        $(document).ready(function(){
+            $("#sl").click(function(){
+                f_sl *= -1;
+                var n = $(this).prevAll().length;
+                sortTable(f_sl,n);
+            });
+        
+            $("#nm").click(function(){
+                f_nm *= -1;
+                var n = $(this).prevAll().length;
+                sortTable(f_nm,n);
+            });
+            
+            $("#temp").click(function(){
+                f_nm *= -1;
+                var n = $(this).prevAll().length;
+                sortTable(f_nm,n);
+            });
+        });
+    </script>
+    <style type="text/css">
+        thead { color:green; }
+        tbody { color:blue; }
+        tfoot { color:red; }
+        table,th,td { border:1px solid black; }
+        th:hover{ cursor:pointer;background:#AAA; }
+    </style>
+</head>
+<body>
+    <table id="mytable">
+        <thead>
+            <tr>
+                <th id="sl">S.L.</th>
+                <th id="nm">name</th>
+                <th id="temp">temp</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ronaldo</td>
+                <td>Ice  Cream</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Messi</td>
+                <td>Vanilla</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Ribery</td>
+                <td>Chocolate</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>Bale</td>
+                <td>Fruit</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
